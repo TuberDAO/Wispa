@@ -38,8 +38,18 @@ export default function Home() {
               <h1 className="text-7xl md:text-9xl font-bold gradient-text-cyan tracking-tight leading-none">
                 WispAGPT
               </h1>
-              <p className="text-3xl md:text-5xl text-white font-light tracking-wide">
-                Your private AI - <span className="text-cyber-cyan font-normal">with receipts</span>
+              <p className="text-2xl md:text-4xl text-white font-light tracking-wide">
+                Your private AI - <span className="text-cyber-cyan font-normal inline-flex items-baseline gap-1">
+                  <span className="whitespace-nowrap mr-1">
+                    with <span className="text-pop-accent">P</span>roof
+                  </span>
+                  <span className="whitespace-nowrap mr-1">
+                    <span className="text-pop-accent">O</span>f
+                  </span>
+                  <span className="whitespace-nowrap">
+                    <span className="text-pop-accent">P</span>rivacy
+                  </span>
+                </span>
               </p>
             </div>
 

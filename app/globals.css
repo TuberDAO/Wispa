@@ -178,6 +178,14 @@ body {
                  0 0 40px rgba(0, 255, 136, 0.4);
   }
   
+  .text-pop-accent {
+    text-shadow: -1px -1px 0 #000,
+                 1px -1px 0 #000,
+                 -1px 1px 0 #000,
+                 1px 1px 0 #000,
+                 0 0 2px rgba(0, 0, 0, 0.9);
+  }
+  
   .cyber-border-cyan {
     border: 1px solid rgba(0, 217, 255, 0.4);
     box-shadow: 0 0 20px rgba(0, 217, 255, 0.15),
