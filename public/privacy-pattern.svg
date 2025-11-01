@@ -1,0 +1,125 @@
+<svg width="1400" height="1400" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Gradient definitions for depth -->
+    <linearGradient id="cyanGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:rgba(0, 217, 255, 0.4);stop-opacity:1" />
+      <stop offset="100%" style="stop-color:rgba(0, 255, 136, 0.2);stop-opacity:1" />
+    </linearGradient>
+    
+    <radialGradient id="shieldGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:rgba(0, 217, 255, 0.6);stop-opacity:1" />
+      <stop offset="100%" style="stop-color:rgba(0, 217, 255, 0);stop-opacity:0" />
+    </radialGradient>
+    
+    <!-- Privacy Shield Icon -->
+    <g id="shield">
+      <path d="M25,5 L45,5 C45,5 48,15 48,25 C48,40 35,50 35,50 C35,50 22,40 22,25 C22,15 25,5 25,5 Z" 
+            fill="none" stroke="url(#cyanGlow)" stroke-width="1.5" opacity="0.6"/>
+      <path d="M28,25 L32,29 L42,19" fill="none" stroke="rgba(0, 255, 136, 0.7)" stroke-width="1.5" stroke-linecap="round" opacity="0.8"/>
+      <circle cx="35" cy="28" r="20" fill="url(#shieldGlow)" opacity="0.15"/>
+    </g>
+    
+    <!-- Lock Icon -->
+    <g id="lock">
+      <rect x="15" y="25" width="20" height="18" rx="2" fill="rgba(0, 217, 255, 0.1)" 
+            stroke="rgba(0, 217, 255, 0.6)" stroke-width="1.5"/>
+      <path d="M18,25 L18,18 C18,13 22,10 25,10 C28,10 32,13 32,18 L32,25" 
+            fill="none" stroke="rgba(0, 217, 255, 0.6)" stroke-width="1.5"/>
+      <circle cx="25" cy="34" r="2.5" fill="rgba(0, 255, 136, 0.8)"/>
+      <line x1="25" y1="36" x2="25" y2="40" stroke="rgba(0, 255, 136, 0.8)" stroke-width="1.5"/>
+    </g>
+    
+    <!-- Encryption Key -->
+    <g id="key">
+      <circle cx="15" cy="25" r="6" fill="none" stroke="rgba(0, 217, 255, 0.5)" stroke-width="1.5"/>
+      <circle cx="15" cy="25" r="3" fill="rgba(0, 217, 255, 0.2)"/>
+      <line x1="20" y1="25" x2="40" y2="25" stroke="rgba(0, 217, 255, 0.5)" stroke-width="2"/>
+      <line x1="32" y1="22" x2="32" y2="28" stroke="rgba(0, 217, 255, 0.5)" stroke-width="1.5"/>
+      <line x1="37" y1="22" x2="37" y2="28" stroke="rgba(0, 217, 255, 0.5)" stroke-width="1.5"/>
+    </g>
+    
+    <!-- Data Flow Particle -->
+    <g id="particle">
+      <circle cx="0" cy="0" r="2" fill="rgba(0, 255, 136, 0.6)">
+        <animate attributeName="opacity" values="0.3;0.8;0.3" dur="3s" repeatCount="indefinite"/>
+      </circle>
+    </g>
+    
+    <!-- Orbital Ring Fragment -->
+    <g id="ring">
+      <path d="M0,0 Q50,20 100,0" fill="none" stroke="rgba(0, 217, 255, 0.3)" stroke-width="1" stroke-dasharray="5,5"/>
+    </g>
+    
+    <!-- Hexagon Frame (privacy cell) -->
+    <g id="hexagon">
+      <path d="M30,0 L60,15 L60,45 L30,60 L0,45 L0,15 Z" 
+            fill="rgba(0, 217, 255, 0.02)" stroke="rgba(0, 217, 255, 0.4)" stroke-width="1"/>
+      <path d="M30,15 L45,22.5 L45,37.5 L30,45 L15,37.5 L15,22.5 Z" 
+            fill="none" stroke="rgba(0, 255, 136, 0.3)" stroke-width="0.8"/>
+    </g>
+    
+    <!-- Fingerprint Arc -->
+    <g id="fingerprint">
+      <path d="M10,30 Q25,10 40,30" fill="none" stroke="rgba(0, 217, 255, 0.4)" stroke-width="1"/>
+      <path d="M12,35 Q25,17 38,35" fill="none" stroke="rgba(0, 217, 255, 0.3)" stroke-width="1"/>
+      <path d="M14,40 Q25,24 36,40" fill="none" stroke="rgba(0, 217, 255, 0.2)" stroke-width="1"/>
+    </g>
+    
+  </defs>
+  
+  <!-- Central focal area - upper third -->
+  <g transform="translate(600, 250)">
+    <!-- Large central shield with glow -->
+    <use href="#shield" transform="scale(2.5) translate(-20, -20)"/>
+    
+    <!-- Orbital rings around shield -->
+    <ellipse cx="0" cy="0" rx="120" ry="80" fill="none" stroke="rgba(0, 217, 255, 0.15)" stroke-width="1" stroke-dasharray="10,5">
+      <animateTransform attributeName="transform" type="rotate" from="0 0 0" to="360 0 0" dur="60s" repeatCount="indefinite"/>
+    </ellipse>
+    <ellipse cx="0" cy="0" rx="140" ry="95" fill="none" stroke="rgba(0, 255, 136, 0.1)" stroke-width="0.8" stroke-dasharray="8,8">
+      <animateTransform attributeName="transform" type="rotate" from="360 0 0" to="0 0 0" dur="80s" repeatCount="indefinite"/>
+    </ellipse>
+    
+    <!-- Floating lock icons -->
+    <use href="#lock" transform="translate(-100, -60) scale(1.2)"/>
+    <use href="#lock" transform="translate(80, -50) scale(1)"/>
+    <use href="#key" transform="translate(-90, 70) scale(1.3) rotate(-15)"/>
+    <use href="#key" transform="translate(70, 80) scale(1.1) rotate(25)"/>
+  </g>
+  
+  <!-- Scattered privacy elements - top area -->
+  <use href="#hexagon" x="150" y="80" transform="rotate(-12 180 110)"/>
+  <use href="#hexagon" x="1100" y="120" transform="rotate(18 1130 150)"/>
+  <use href="#shield" x="250" y="150" transform="scale(1.2) rotate(-8)"/>
+  <use href="#lock" x="980" y="200" transform="scale(1.3)"/>
+  
+  <!-- Middle scattered elements -->
+  <use href="#fingerprint" x="120" y="450" transform="scale(1.5) rotate(-5)"/>
+  <use href="#lock" x="200" y="550" transform="scale(1.4) rotate(12)"/>
+  <use href="#hexagon" x="350" y="600" transform="rotate(25 380 630)"/>
+  <use href="#shield" x="900" y="500" transform="scale(1.3) rotate(-15)"/>
+  <use href="#key" x="1050" y="580" transform="scale(1.5) rotate(8)"/>
+  <use href="#shield" x="1150" y="450" transform="scale(1.1) rotate(-10)"/>
+  
+  <!-- Lower area elements -->
+  <use href="#hexagon" x="180" y="950" transform="rotate(-18 210 980)"/>
+  <use href="#hexagon" x="480" y="1050" transform="rotate(15 510 1080)"/>
+  <use href="#lock" x="300" y="1100" transform="scale(1.2)"/>
+  <use href="#shield" x="650" y="1000" transform="scale(1.4) rotate(20)"/>
+  <use href="#fingerprint" x="850" y="1120" transform="scale(1.3) rotate(12)"/>
+  <use href="#key" x="1000" y="980" transform="scale(1.3) rotate(-20)"/>
+  <use href="#hexagon" x="1100" y="1080" transform="rotate(-10 1130 1110)"/>
+  
+  <!-- Data flow lines connecting elements (subtle) -->
+  <path d="M600,250 Q400,400 200,600" fill="none" stroke="rgba(0, 217, 255, 0.08)" stroke-width="1" stroke-dasharray="5,10"/>
+  <path d="M700,300 Q900,450 1050,600" fill="none" stroke="rgba(0, 255, 136, 0.08)" stroke-width="1" stroke-dasharray="5,10"/>
+  <path d="M600,350 Q600,600 650,1000" fill="none" stroke="rgba(0, 217, 255, 0.08)" stroke-width="1" stroke-dasharray="5,10"/>
+  
+  <!-- Floating particles along paths -->
+  <use href="#particle" x="400" y="350"/>
+  <use href="#particle" x="800" y="400"/>
+  <use href="#particle" x="600" y="650"/>
+  <use href="#particle" x="450" y="800"/>
+  <use href="#particle" x="750" y="750"/>
+</svg>
+
