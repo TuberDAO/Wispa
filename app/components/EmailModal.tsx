@@ -4,13 +4,12 @@ import { useState, useEffect } from 'react';
 import { sanitizeEmail, isValidEmail } from '../utils/sanitize';
 
 interface EmailModalProps {
-  isOpen: boolean;
+  open: boolean;
   onClose: () => void;
-  title?: string;
-  tag?: 'notify' | 'whitepaper';
+  tag?: 'notify' | 'whitepaper' | 'other';
 }
 
-export default function EmailModal({ isOpen, onClose, title = "Join Early Access", tag = 'notify' }: EmailModalProps) {
+export default function EmailModal({ open, onClose, tag = 'notify' }: EmailModalProps) {
   const [email, setEmail] = useState('');
   const [company, setCompany] = useState(''); // Honeypot
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
@@ -18,7 +17,7 @@ export default function EmailModal({ isOpen, onClose, title = "Join Early Access
 
   // Prevent body scroll when modal is open
   useEffect(() => {
-    if (isOpen) {
+    if (open) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = 'unset';
@@ -26,18 +25,18 @@ export default function EmailModal({ isOpen, onClose, title = "Join Early Access
     return () => {
       document.body.style.overflow = 'unset';
     };
-  }, [isOpen]);
+  }, [open]);
 
   // Close modal on escape key
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose();
     };
-    if (isOpen) {
+    if (open) {
       window.addEventListener('keydown', handleEscape);
     }
     return () => window.removeEventListener('keydown', handleEscape);
-  }, [isOpen, onClose]);
+  }, [open, onClose]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -90,14 +89,14 @@ export default function EmailModal({ isOpen, onClose, title = "Join Early Access
         onClose();
         setStatus('idle');
         setMessage('');
-      }, 2000);
+      }, 1500);
     } catch (error) {
       setStatus('error');
       setMessage('Something went wrong. Please try again.');
     }
   };
 
-  if (!isOpen) return null;
+  if (!open) return null;
 
   return (
     <div 
@@ -123,9 +122,11 @@ export default function EmailModal({ isOpen, onClose, title = "Join Early Access
           <p className="terminal-text text-xs mb-3">
             <span className="terminal-bracket">[ </span>early access<span className="terminal-bracket"> ]</span>
           </p>
-          <h2 className="text-3xl font-bold gradient-text-cyan mb-3">{title}</h2>
+          <h2 className="text-3xl font-bold gradient-text-cyan mb-3">
+            {tag === 'whitepaper' ? 'Request Whitepaper' : 'Join Early Access'}
+          </h2>
           <p className="text-text-secondary text-base">
-            Be the first to experience verifiable AI inference on MegaETH.
+            Experience AI with P.O.P (Proof Of Privacy).
           </p>
         </div>
 
@@ -153,6 +154,7 @@ export default function EmailModal({ isOpen, onClose, title = "Join Early Access
               id="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              onKeyDown={(e) => { if (e.key === 'Enter') handleSubmit(e); }}
               className="w-full px-4 py-3 bg-cyber-dark/50 border border-cyber-cyan/30 rounded-lg text-white placeholder-text-muted focus:outline-none focus:border-cyber-cyan focus:ring-2 focus:ring-cyber-cyan/50 transition-all duration-200"
               placeholder="your@email.com"
               required

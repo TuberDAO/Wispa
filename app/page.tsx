@@ -5,21 +5,13 @@ import EmailModal from './components/EmailModal';
 
 export default function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalTitle, setModalTitle] = useState('Join Early Access');
-  const [modalTag, setModalTag] = useState<'notify' | 'whitepaper'>('notify');
-
-  const openModal = (title: string = 'Join Early Access', tag: 'notify' | 'whitepaper' = 'notify') => {
-    setModalTitle(title);
-    setModalTag(tag);
-    setIsModalOpen(true);
-  };
+  const [modalTag, setModalTag] = useState<'notify' | 'whitepaper' | 'other'>('notify');
 
   return (
     <>
       <EmailModal 
-        isOpen={isModalOpen} 
+        open={isModalOpen} 
         onClose={() => setIsModalOpen(false)} 
-        title={modalTitle}
         tag={modalTag}
       />
 
@@ -69,13 +61,13 @@ export default function Home() {
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-8">
               <button
-                onClick={() => openModal('Join Early Access', 'notify')}
+                onClick={() => { setModalTag('notify'); setIsModalOpen(true); }}
                 className="group px-10 py-4 bg-cyber-cyan text-cyber-dark text-lg font-semibold rounded-lg hover:bg-cyber-cyanGlow transition-all duration-200 transform hover:scale-105 active:scale-95 animate-pulse-glow"
               >
                 Join Early Access
               </button>
               <button
-                onClick={() => openModal('Request Whitepaper', 'whitepaper')}
+                onClick={() => { setModalTag('whitepaper'); setIsModalOpen(true); }}
                 className="px-10 py-4 bg-transparent cyber-border-magenta text-text-primary text-lg font-semibold rounded-lg hover:bg-cyber-magenta/10 transition-all duration-200 transform hover:scale-105 active:scale-95"
               >
                 Request Whitepaper
@@ -262,7 +254,7 @@ export default function Home() {
               {/* CTA */}
               <div className="text-center pt-8 border-t border-cyber-border">
                 <button
-                  onClick={() => openModal('Get Whitepaper Updates', 'whitepaper')}
+                  onClick={() => { setModalTag('whitepaper'); setIsModalOpen(true); }}
                   className="px-12 py-4 bg-cyber-magenta text-white text-lg font-semibold rounded-lg hover:bg-cyber-purple transition-all duration-200 transform hover:scale-105 active:scale-95 box-glow-magenta"
                 >
                   Notify Me
