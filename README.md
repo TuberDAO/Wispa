@@ -143,24 +143,76 @@ Create API routes in `app/api/` for:
 - Contact form: `/api/contact`
 - Whitepaper download: `/api/whitepaper`
 
-## 📝 Environment Variables
+## 📧 Email Capture
 
-Copy `.env.example` to `.env.local` and configure:
+Secure email capture with Vercel KV storage and same-origin API.
+
+### Setup Vercel KV
+
+1. Go to your Vercel Dashboard → Storage → KV
+2. Create a new KV database (or select existing)
+3. Copy the `KV_REST_API_URL` and `KV_REST_API_TOKEN` from the `.env.local` tab
+4. Add them to your `.env.local` file
+
+### Required Environment Variables
+
+Create a `.env.local` file with:
 
 ```bash
-# API Configuration
+# Vercel KV Configuration
+KV_REST_API_URL=https://your-kv-url.vercel-storage.com
+KV_REST_API_TOKEN=your-token-here
+
+# Email security salt (generate with: openssl rand -hex 32)
+EMAIL_SALT=your-random-salt-here
+```
+
+### Features
+
+- **Rate Limiting**: 5 requests per 60 seconds per IP
+- **Honeypot Protection**: Silently rejects bot submissions
+- **PII Hashing**: IPs and emails are hashed with salt before storage
+- **Local Fallback**: Development mode logs to console when KV is not configured
+- **Edge Runtime**: Fast, globally distributed API
+
+### API Endpoint
+
+`POST /api/subscribe`
+
+**Request:**
+```json
+{
+  "email": "user@example.com",
+  "tag": "notify" // or "whitepaper"
+}
+```
+
+**Response:**
+- `201`: Success
+- `400`: Invalid email
+- `429`: Rate limit exceeded
+- `500`: Server error
+
+**Note**: Local file fallback (`.data/emails.json`) is only for development and will not work in production.
+
+## 📝 Environment Variables
+
+Create `.env.local` for local development:
+
+```bash
+# Vercel KV (required for production)
+KV_REST_API_URL=https://your-kv-url.vercel-storage.com
+KV_REST_API_TOKEN=your-token-here
+
+# Email Security
+EMAIL_SALT=your-random-salt-here
+
+# Optional: API Configuration
 NEXT_PUBLIC_API_URL=https://api.wispagpt.com
 
-# Email Service
-EMAIL_SERVICE_API_KEY=your_key_here
-
-# Web3 Configuration
+# Optional: Web3 Configuration
 NEXT_PUBLIC_MEGAETH_RPC_URL=https://rpc.megaeth.com
 NEXT_PUBLIC_CHAIN_ID=1
-
-# Rate Limiting
-RATE_LIMIT_MAX=100
-RATE_LIMIT_WINDOW=900000
 ```
 
 ## 🧪 Lighthouse Score

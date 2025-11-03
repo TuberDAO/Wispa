@@ -7,10 +7,12 @@ interface EmailModalProps {
   isOpen: boolean;
   onClose: () => void;
   title?: string;
+  tag?: 'notify' | 'whitepaper';
 }
 
-export default function EmailModal({ isOpen, onClose, title = "Join Early Access" }: EmailModalProps) {
+export default function EmailModal({ isOpen, onClose, title = "Join Early Access", tag = 'notify' }: EmailModalProps) {
   const [email, setEmail] = useState('');
+  const [company, setCompany] = useState(''); // Honeypot
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [message, setMessage] = useState('');
 
@@ -51,17 +53,37 @@ export default function EmailModal({ isOpen, onClose, title = "Join Early Access
       return;
     }
 
-    // Simulate submission (no external service for now)
-    // In production, replace with actual API call
     try {
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      // Store in memory only (for demo purposes)
-      console.log('Email captured (secure, memory only):', sanitizedEmail);
+      // POST to same-origin API
+      const response = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: sanitizedEmail,
+          tag,
+          company, // Honeypot field
+        }),
+      });
+
+      if (response.status === 429) {
+        setStatus('error');
+        setMessage('Too many requests. Please try again in a minute.');
+        return;
+      }
+
+      if (!response.ok) {
+        const data = await response.json();
+        setStatus('error');
+        setMessage(data.error || 'Something went wrong. Please try again.');
+        return;
+      }
       
       setStatus('success');
       setMessage('Thank you! You\'re on the list.');
       setEmail('');
+      setCompany('');
       
       // Close modal after success
       setTimeout(() => {
@@ -108,6 +130,20 @@ export default function EmailModal({ isOpen, onClose, title = "Join Early Access
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-5">
+          {/* Honeypot field - visually hidden but in DOM */}
+          <div style={{ position: 'absolute', left: '-9999px' }} aria-hidden="true">
+            <label htmlFor="company">Company (leave blank)</label>
+            <input
+              type="text"
+              id="company"
+              name="company"
+              value={company}
+              onChange={(e) => setCompany(e.target.value)}
+              tabIndex={-1}
+              autoComplete="off"
+            />
+          </div>
+
           <div>
             <label htmlFor="email" className="block text-sm font-medium text-text-primary mb-2">
               Email Address
@@ -123,6 +159,9 @@ export default function EmailModal({ isOpen, onClose, title = "Join Early Access
               disabled={status === 'loading'}
               maxLength={254}
             />
+            <p className="text-xs text-text-muted mt-2">
+              We'll only email you about WispAGPT updates. You can opt out anytime.
+            </p>
           </div>
 
           {message && (

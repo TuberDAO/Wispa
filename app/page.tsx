@@ -6,9 +6,11 @@ import EmailModal from './components/EmailModal';
 export default function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalTitle, setModalTitle] = useState('Join Early Access');
+  const [modalTag, setModalTag] = useState<'notify' | 'whitepaper'>('notify');
 
-  const openModal = (title: string = 'Join Early Access') => {
+  const openModal = (title: string = 'Join Early Access', tag: 'notify' | 'whitepaper' = 'notify') => {
     setModalTitle(title);
+    setModalTag(tag);
     setIsModalOpen(true);
   };
 
@@ -18,6 +20,7 @@ export default function Home() {
         isOpen={isModalOpen} 
         onClose={() => setIsModalOpen(false)} 
         title={modalTitle}
+        tag={modalTag}
       />
 
       <main className="relative min-h-screen z-10">
@@ -66,13 +69,13 @@ export default function Home() {
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-8">
               <button
-                onClick={() => openModal('Join Early Access')}
+                onClick={() => openModal('Join Early Access', 'notify')}
                 className="group px-10 py-4 bg-cyber-cyan text-cyber-dark text-lg font-semibold rounded-lg hover:bg-cyber-cyanGlow transition-all duration-200 transform hover:scale-105 active:scale-95 animate-pulse-glow"
               >
                 Join Early Access
               </button>
               <button
-                onClick={() => openModal('Request Whitepaper')}
+                onClick={() => openModal('Request Whitepaper', 'whitepaper')}
                 className="px-10 py-4 bg-transparent cyber-border-magenta text-text-primary text-lg font-semibold rounded-lg hover:bg-cyber-magenta/10 transition-all duration-200 transform hover:scale-105 active:scale-95"
               >
                 Request Whitepaper
@@ -132,10 +135,6 @@ export default function Home() {
                   <span className="text-text-secondary">Powered by</span>
                   <span className="text-cyber-green font-bold text-glow-green">MegaETH</span>
                 </div>
-                
-                <p className="text-text-muted text-base">
-                  High-performance blockchain for instant verification and low-cost proof storage.
-                </p>
               </div>
             </div>
           </div>
@@ -263,7 +262,7 @@ export default function Home() {
               {/* CTA */}
               <div className="text-center pt-8 border-t border-cyber-border">
                 <button
-                  onClick={() => openModal('Get Whitepaper Updates')}
+                  onClick={() => openModal('Get Whitepaper Updates', 'whitepaper')}
                   className="px-12 py-4 bg-cyber-magenta text-white text-lg font-semibold rounded-lg hover:bg-cyber-purple transition-all duration-200 transform hover:scale-105 active:scale-95 box-glow-magenta"
                 >
                   Notify Me
