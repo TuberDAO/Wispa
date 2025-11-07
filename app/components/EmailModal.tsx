@@ -80,7 +80,7 @@ export default function EmailModal({ open, onClose, tag = 'notify' }: EmailModal
       }
       
       setStatus('success');
-      setMessage('Thank you! You\'re on the list.');
+      setMessage('Thanks — you\'re on the list.');
       setEmail('');
       setCompany('');
       

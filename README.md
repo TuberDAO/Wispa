@@ -165,6 +165,9 @@ KV_REST_API_TOKEN=your-token-here
 
 # Email security salt (generate with: openssl rand -hex 32)
 EMAIL_SALT=your-random-salt-here
+
+# Admin key for debug routes (set in Vercel environment variables)
+ADMIN_KEY=your-secure-admin-key-here
 ```
 
 ### Features
@@ -206,6 +209,9 @@ KV_REST_API_TOKEN=your-token-here
 
 # Email Security
 EMAIL_SALT=your-random-salt-here
+
+# Admin key for debug routes (set in Vercel environment variables)
+ADMIN_KEY=your-secure-admin-key-here
 
 # Optional: API Configuration
 NEXT_PUBLIC_API_URL=https://api.wispagpt.com
