@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { sanitizeEmail, isValidEmail } from '../utils/sanitize';
 
 interface EmailModalProps {
@@ -14,6 +14,50 @@ export default function EmailModal({ open, onClose, tag = 'notify' }: EmailModal
   const [company, setCompany] = useState(''); // Honeypot
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [message, setMessage] = useState('');
+  
+  // Refs for focus trap
+  const modalRef = useRef<HTMLDivElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const emailInputRef = useRef<HTMLInputElement>(null);
+
+  // Focus trap: capture first and last focusable elements
+  useEffect(() => {
+    if (!open || !modalRef.current) return;
+
+    const modal = modalRef.current;
+    const focusableElements = modal.querySelectorAll<HTMLElement>(
+      'button:not([disabled]), input:not([disabled]), textarea:not([disabled]), select:not([disabled]), a[href]'
+    );
+    
+    const firstFocusable = focusableElements[0];
+    const lastFocusable = focusableElements[focusableElements.length - 1];
+
+    // Focus the email input when modal opens
+    setTimeout(() => {
+      emailInputRef.current?.focus();
+    }, 100);
+
+    const handleTab = (e: KeyboardEvent) => {
+      if (e.key !== 'Tab') return;
+
+      if (e.shiftKey) {
+        // Shift+Tab: moving backwards
+        if (document.activeElement === firstFocusable) {
+          e.preventDefault();
+          lastFocusable?.focus();
+        }
+      } else {
+        // Tab: moving forwards
+        if (document.activeElement === lastFocusable) {
+          e.preventDefault();
+          firstFocusable?.focus();
+        }
+      }
+    };
+
+    modal.addEventListener('keydown', handleTab);
+    return () => modal.removeEventListener('keydown', handleTab);
+  }, [open]);
 
   // Prevent body scroll when modal is open
   useEffect(() => {
@@ -102,16 +146,23 @@ export default function EmailModal({ open, onClose, tag = 'notify' }: EmailModal
     <div 
       className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-80 backdrop-blur-sm animate-fade-in"
       onClick={onClose}
+      role="presentation"
     >
       <div 
+        ref={modalRef}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="modal-title"
+        aria-describedby="modal-description"
         className="relative w-full max-w-md cyber-border-cyan rounded-xl p-8 md:p-10 bg-gradient-to-br from-cyber-navy/95 to-cyber-dark/95 backdrop-blur-xl shadow-2xl box-glow-cyan animate-slide-up"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Close button */}
         <button
+          ref={closeButtonRef}
           onClick={onClose}
           className="absolute top-4 right-4 text-text-muted hover:text-cyber-cyan transition-colors duration-200"
-          aria-label="Close modal"
+          aria-label="Close dialog"
         >
           <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -122,10 +173,10 @@ export default function EmailModal({ open, onClose, tag = 'notify' }: EmailModal
           <p className="terminal-text text-xs mb-3">
             <span className="terminal-bracket">[ </span>early access<span className="terminal-bracket"> ]</span>
           </p>
-          <h2 className="text-3xl font-bold gradient-text-cyan mb-3">
+          <h2 id="modal-title" className="text-3xl font-bold gradient-text-cyan mb-3">
             {tag === 'whitepaper' ? 'Request Whitepaper' : 'Join Early Access'}
           </h2>
-          <p className="text-text-secondary text-base">
+          <p id="modal-description" className="text-text-secondary text-base">
             Experience AI with P.O.P (Proof Of Privacy).
           </p>
         </div>
@@ -150,6 +201,7 @@ export default function EmailModal({ open, onClose, tag = 'notify' }: EmailModal
               Email Address
             </label>
             <input
+              ref={emailInputRef}
               type="email"
               id="email"
               value={email}
@@ -160,6 +212,8 @@ export default function EmailModal({ open, onClose, tag = 'notify' }: EmailModal
               required
               disabled={status === 'loading'}
               maxLength={254}
+              aria-invalid={status === 'error'}
+              aria-describedby={message ? 'form-message' : undefined}
             />
             <p className="text-xs text-text-muted mt-2">
               We'll only email you about WispAGPT updates. You can opt out anytime.
@@ -167,11 +221,16 @@ export default function EmailModal({ open, onClose, tag = 'notify' }: EmailModal
           </div>
 
           {message && (
-            <div className={`text-sm p-4 rounded-lg ${
-              status === 'success' 
-                ? 'bg-cyber-green/10 text-cyber-green border border-cyber-green/30' 
-                : 'bg-red-500/10 text-red-400 border border-red-500/30'
-            }`}>
+            <div 
+              id="form-message"
+              role="alert"
+              aria-live="polite"
+              className={`text-sm p-4 rounded-lg ${
+                status === 'success' 
+                  ? 'bg-cyber-green/10 text-cyber-green border border-cyber-green/30' 
+                  : 'bg-red-500/10 text-red-400 border border-red-500/30'
+              }`}
+            >
               {message}
             </div>
           )}

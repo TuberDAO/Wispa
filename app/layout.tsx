@@ -1,4 +1,6 @@
 import type { Metadata, Viewport } from "next";
+import { headers } from "next/headers";
+import Script from "next/script";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -33,6 +35,10 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // Get CSP nonce from middleware (if any scripts need it)
+  const headersList = headers();
+  const nonce = headersList.get('x-nonce') || undefined;
+
   return (
     <html lang="en">
       <body className="antialiased">
@@ -40,6 +46,7 @@ export default function RootLayout({
         <div className="grid-background" />
         <div className="scan-lines" />
         {children}
+        {/* Any future scripts that need nonce can use: <Script nonce={nonce} /> */}
       </body>
     </html>
   );
