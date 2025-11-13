@@ -207,35 +207,35 @@ export default function Home() {
 
             {/* Second Row of Boxes */}
             <div className="grid md:grid-cols-3 gap-6 lg:gap-8 mt-6 lg:mt-8">
-              {/* Peer-to-Peer AI Network */}
+              {/* Decentralized Agent Network */}
               <div className="group cyber-border-cyan rounded-xl p-8 bg-cyber-navy/20 backdrop-blur-sm hover:bg-cyber-navy/40 hover:box-glow-cyan transition-all duration-300 transform hover:-translate-y-2 flex flex-col">
                 <div className="w-16 h-16 rounded-lg bg-cyber-cyan/10 flex items-center justify-center group-hover:bg-cyber-cyan/20 transition-colors mb-6">
                   <svg className="w-9 h-9 text-cyber-cyan" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                   </svg>
                 </div>
-                <h3 className="text-2xl font-bold text-white mb-6">Peer-to-Peer AI Network</h3>
+                <h3 className="text-2xl font-bold text-white mb-6">Decentralized Agent Network</h3>
                 <p className="text-text-secondary leading-relaxed mb-6 flex-grow">
-                  Behind WispA is an open marketplace of AI agents that connect and collaborate directly without intermediaries. Each agent runs independently inside verified hardware, allowing users and developers to exchange data, models and results securely while keeping full control.
+                  Behind WispA is a network of independent AI agents that work together directly without central control. Each agent operates inside verified hardware, allowing people to share models, run tasks and exchange results privately with automatic crypto payments for real work.
                 </p>
                 <div className="pt-2">
                   <span className="inline-block text-cyber-cyan text-sm font-mono">→ Learn more (coming soon)</span>
                 </div>
               </div>
 
-              {/* Agent Registry and Micropayments */}
+              {/* Private Extended Memory */}
               <div className="group cyber-border-magenta rounded-xl p-8 bg-cyber-navy/20 backdrop-blur-sm hover:bg-cyber-navy/40 hover:box-glow-magenta transition-all duration-300 transform hover:-translate-y-2 flex flex-col">
                 <div className="w-16 h-16 rounded-lg bg-cyber-magenta/10 flex items-center justify-center group-hover:bg-cyber-magenta/20 transition-colors mb-6">
                   <svg className="w-9 h-9 text-cyber-magenta" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
                   </svg>
                 </div>
-                <h3 className="text-2xl font-bold text-white mb-6">Agent Registry and Micropayments</h3>
+                <h3 className="text-2xl font-bold text-white mb-6">Private Extended Memory</h3>
                 <p className="text-text-secondary leading-relaxed mb-6 flex-grow">
-                  Agents can register their skills, discover others and exchange verified work for instant crypto payments. The system turns AI into a live economy where tasks settle automatically in seconds and everyone earns fairly for real contributions.
+                  Most AI platforms save your history in their own cloud and use it for their purposes. WispA will give you memory that belongs only to you and is proven private. Your past work, preferences & long term context stay encrypted on your device or in dex backup & load instantly into new sessions. You get an assistant that remembers your projects and adapts to how you work without ever taking control of your data. Built for real long term continuity.
                 </p>
                 <div className="pt-2">
-                  <span className="inline-block text-cyber-magenta text-sm font-mono">→ View docs (coming soon)</span>
+                  <span className="inline-block text-cyber-magenta text-sm font-mono">→ Learn more (coming soon)</span>
                 </div>
               </div>
 
