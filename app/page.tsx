@@ -56,9 +56,6 @@ export default function Home() {
               <p className="text-xl md:text-2xl text-text-secondary leading-relaxed">
                 Everything you ask stays private. Privacy you can prove.
               </p>
-              <p className="text-base md:text-lg text-text-muted">
-                Powered by MegaETH
-              </p>
             </div>
 
             {/* CTA Buttons */}
@@ -118,7 +115,7 @@ export default function Home() {
                 </p>
                 
                 <p>
-                  <span className="text-white font-semibold">WispAGPT</span> solves this by combining secure enclaves with blockchain verification. 
+                  <span className="text-white font-semibold">WispAGPT</span> solves this by combining secure enclaves with verification. 
                   Your data stays private inside hardware-level trusted execution environments, 
                   while every inference is cryptographically proven and recorded on-chain.
                 </p>
@@ -129,11 +126,6 @@ export default function Home() {
                     <span className="text-cyber-magenta font-bold text-glow-magenta">VERIFIABLE PROOF</span>{' '}
                     on the blockchain showing when it ran and what model was used.
                   </p>
-                </div>
-                
-                <div className="flex items-center gap-3 text-xl pt-4">
-                  <span className="text-text-secondary">Powered by</span>
-                  <span className="text-cyber-green font-bold text-glow-green">MegaETH</span>
                 </div>
               </div>
             </div>
